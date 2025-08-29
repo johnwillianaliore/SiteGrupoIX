@@ -1,0 +1,22 @@
+# .htaccess
+Options -Indexes
+
+<IfModule mod_rewrite.c>
+RewriteEngine On
+
+# Força barra final opcional a redirecionar para sem barra (opcional)
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.+)/$ /$1 [L,R=301]
+
+# Roteia tudo para index.php, mantendo caminhos de /assets intactos
+RewriteCond %{REQUEST_URI} !^/assets/
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.+)$ index.php?p=$1 [QSA,L]
+</IfModule>
+
+# Segurança básica (opcional)
+<FilesMatch "\.(env|ini|log|sql|bak|config|yml)$">
+  Require all denied
+</FilesMatch>

@@ -1,0 +1,88 @@
+/* ===== HERO FULL-BLEED ===== */
+/* Esta classe ignora o container do <main> e ocupa 100vw. */
+.hero-fullbleed{
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  width: 100%;
+  padding: 0px;
+}
+
+/* Controla a “duração” da rolagem do efeito */
+#container-animacao{
+  height: 500vh;
+  position: relative;
+  background: #000; /* fundo por trás do canvas para evitar bordas claras/pretas */
+}
+
+/* Canvas ocupa 100% da viewport e gruda no topo enquanto a seção rola */
+#canvas-sequencia{
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100vw;   /* 100% da largura da viewport */
+  height: 100vh;  /* 100% da altura da viewport */
+  display: block;
+   max-width: 100% !important; /* impede restrição de container */
+}
+
+/* Texto central, mas preso à 1ª seção (não acompanha a 2ª) */
+.bloco-texto-animado{
+  position: sticky;  /* era fixed */
+  top: 0;
+  height: 100vh;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 24px;
+  z-index: 2;
+  pointer-events: none;
+  opacity: 0;                   /* animado via JS */
+  transform: translateY(100vh); /* animado via JS */
+  transition: none;
+  will-change: transform, opacity;
+  color: #fff;                  /* texto claro sobre vídeo/imagem */
+}
+
+.bloco-texto-animado .subtitulo{
+  font-size: clamp(12px, 2.2vw, 16px);
+  letter-spacing: .12em;
+  opacity: .9;
+  margin: 0 0 10px;
+}
+
+.bloco-texto-animado h2{
+  margin: 0 0 10px;
+  font-size: clamp(28px, 6vw, 64px);
+  line-height: 1.1;
+  font-weight: 700;
+}
+
+.bloco-texto-animado h2 span{ color: #f9b000; }
+
+.bloco-texto-animado .descricao{
+  margin: 0;
+  font-size: clamp(14px, 2.6vw, 20px);
+  opacity: .95;
+}
+
+/* ===== RESPONSIVO ===== */
+/* Laptops/notebooks médios */
+@media (max-width: 1280px){
+  #container-animacao{ height: 420vh; }  /* rolagem um pouco menor */
+  .bloco-texto-animado h2{ font-size: clamp(26px, 5.5vw, 52px); }
+}
+
+/* Tablets & celulares */
+@media (max-width: 768px){
+  #container-animacao{ height: 360vh; }  /* rolagem menor para mobile */
+  .bloco-texto-animado{ padding: 0 16px; }
+  .bloco-texto-animado .subtitulo{ letter-spacing: .08em; }
+  .bloco-texto-animado h2{ font-size: clamp(24px, 9vw, 40px); }
+  .bloco-texto-animado .descricao{ font-size: clamp(13px, 4vw, 16px); }
+}

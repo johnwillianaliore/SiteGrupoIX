@@ -1,0 +1,382 @@
+  /* INÍCIO DO CSS DA SEÇÃO 3 */
+  .servicos-container-principal{
+    align-items: center;
+    justify-content: center;
+    text-align:center;
+  }
+.secao_3_container {
+    padding-left: 25%;
+    padding-right: 25%;
+    align-items: center;
+    background-color: transparent;
+    box-shadow: none;
+    overflow: visible;
+    justify-content: center;
+    text-align: center;
+}
+.secao_3_header {
+    display: flex;
+    width: 100%;
+    margin-bottom: 10px;
+}
+.secao_3_tab {
+    flex: 1;
+    padding: 20px;
+    text-align: center;
+    font-weight: 700;
+    font-size: 1.1em;
+    color: #1D1D1B;
+    background-color: #f3f3f5;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-bottom: 3px solid transparent;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    margin-right: 10px;
+}
+.secao_3_tab:last-child {
+    margin-right: 0;
+}
+.secao_3_tab:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    border-bottom: 3px solid #f9b000;
+}
+.secao_3_tab.secao_3_active {
+    background-color: #f3f3f5;
+    color: #f9b000;
+    font-weight: 700;
+    border-bottom: 3px solid #f9b000;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    outline: 0.5px solid #f9b000;
+}
+.secao_3_content-area {
+    background-color: #f3f3f5;
+    padding-top: 40px; 	
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    overflow: hidden;
+}
+.secao_3_content {
+    display: none;
+}
+.secao_3_content.secao_3_active {
+    display: block;
+}
+.secao_3_items-grid {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    margin-bottom: 20px;
+}
+.secao_3_item {
+    flex: 1;
+    min-height: 125px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    cursor: pointer;
+    padding: 10px;
+    transition: transform 0.3s ease;
+}
+.secao_3_item-icon {
+    width: 60px;
+    height: 60px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    margin-bottom: 8px;
+    transition: background-image 0.1s ease-in-out;
+}
+.secao_3_item-title {
+    font-size: 0.9em;
+    color: #1D1D1B;
+    font-weight: 700;
+    text-align: center;
+}
+.secao_3_item:hover {
+    transform: scale(1.08);
+}
+.secao_3_content-bottom-section {
+    display: flex;
+    align-items: stretch;
+    transition: all 0.3s ease-in-out;
+    min-height: 500px; 
+}
+.coluna-esquerda, .coluna-direita {
+    flex: 1 1 50%;
+    box-sizing: border-box;
+    display: flex;
+    height: auto;
+}
+.coluna-esquerda {
+    padding: 0 40px 25px 40px;
+    align-items: center; 
+    order: 2; 
+}
+.coluna-direita {
+    overflow: hidden; 
+    order: 1; 
+}
+.secao_3_main-text-block {
+    width: 100%;
+    text-align: left;
+    transition: opacity 0.4s ease-in-out;
+}
+.secao_3_image-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    animation: imagePulse 12s ease-in-out infinite;
+}
+.secao_3_stacked-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity 0.5s ease-in-out;
+    opacity: 0;
+}
+.secao_3_stacked-image.active-img {
+    opacity: 1;
+}
+.secao_3_main-text-block h2,
+.secao_3_main-text-block p,
+.secao_3_main-text-block strong,
+.secao_3_main-text-block li {
+    opacity: 0;
+}
+.secao_3_main-text-block h2 {
+    font-size: 26px;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-top: 0;
+    margin-bottom: 20px;
+    line-height: 1.3;
+}
+.secao_3_main-text-block p {
+    font-size: 17px;
+    margin-bottom: 1em;
+    padding-right: 95px;
+}
+.secao_3_main-text-block .titulo-lista {
+    display: block;
+    margin-top: 30px;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    font-size: 20px;
+    font-weight: 700;
+}
+.secao_3_main-text-block ul {
+    --icon-bullet-url: url('https://grupoix.com.br/new/wp-content/uploads/2025/08/X.webp');
+    list-style-type: none; 
+    padding-left: 0;
+    margin-top: 0;
+    font-size: 16px;
+    font-weight: 700;
+}
+.secao_3_main-text-block li {
+    margin-bottom: 8px;
+    transition: transform 0.2s ease-out, color 0.2s ease-out;
+    position: relative;
+    padding-left: 28px; 
+}
+.secao_3_main-text-block li:hover {
+    color: #f9b000;
+    transform: scale(1.02);
+}
+.secao_3_main-text-block li::before {
+    content: ''; 
+    position: absolute;
+    left: 0;
+    top: 8px;
+    width: 10px;
+    height: 10px;
+    background-image: var(--icon-bullet-url);
+    background-size: contain;
+    background-repeat: no-repeat;
+    transition: transform 0.3s ;
+    rotate: 45deg;
+}
+.secao_3_main-text-block li:hover::before {
+    transform: rotate(180deg);
+}
+.secao_3_item.item-active {
+    transform: scale(1.08); 
+}
+.secao_3_item.item-active .secao_3_item-title {
+    color: #f9b000;
+}
+.secao_3_item.item-active .secao_3_item-icon {
+    animation: subtlePulse 2.5s ease-in-out infinite;
+}
+@keyframes subtlePulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.15); }
+    100% { transform: scale(1); }
+}
+@keyframes imagePulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.07); }
+    100% { transform: scale(1); }
+}
+@keyframes slideFadeIn {
+    from { opacity: 0; transform: translateX(-20px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+body::after {
+    position: absolute; width: 0; height: 0; overflow: hidden; z-index: -1;
+    content: url(https://grupoix.com.br/dois/wp-content/uploads/2025/07/ADS_colorido.webp) url(https://grupoix.com.br/dois/wp-content/uploads/2025/07/criativo_colorido.webp) url(https://grupoix.com.br/dois/wp-content/uploads/2025/07/LP_colorido.webp) url(https://grupoix.com.br/dois/wp-content/uploads/2025/07/Relatorio_colorido.webp) url(https://grupoix.com.br/dois/wp-content/uploads/2025/07/Site_colorido.webp) url(https://grupoix.com.br/dois/wp-content/uploads/2025/07/Posicionado_colorido.webp) url(https://grupoix.com.br/dois/wp-content/uploads/2025/07/Blog_colorido.webp) url(https://grupoix.com.br/dois/wp-content/uploads/2025/07/Dados_colorido.webp) url(https://grupoix.com.br/dois/wp-content/uploads/2025/07/PowerBI_colorido.webp) url(https://grupoix.com.br/dois/wp-content/uploads/2025/07/Sales_colorido.webp);
+}
+/* ===== CTA FINAL DA SEÇÃO 3 ===== */
+.secao_3_cta{
+  text-align:center;
+  margin: 40px 0 80px;
+}
+
+.secao_3_btn{
+  display:inline-block;
+  padding:16px 36px;
+  font-size: 1.2em;
+  font-weight:700;
+  background:#f9b000;
+  color:#1D1D1B;
+  border-radius:6px;
+  text-decoration:none;
+  transition: all 0.25s ease;
+  box-shadow:0 3px 8px rgba(0,0,0,.08);
+}
+
+.secao_3_btn:hover,
+.secao_3_btn:focus{
+  background:#1D1D1B;
+  color:#f9b000;
+  box-shadow:0 4px 12px rgba(0,0,0,.15);
+  transform: translateY(-2px);
+}
+
+/* ===== RESPONSIVO SEÇÃO 3 ===== */
+
+/* Laptops e telas médias */
+@media (max-width: 1280px){
+  .secao_3_main-text-block p{ padding-right: 40px; }
+  .secao_3_item{ min-height: 110px; }
+  .secao_3_content-bottom-section{ min-height: 460px; }
+}
+
+/* Tablets (<= 992px) */
+@media (max-width: 992px){
+  .secao_3_items-grid{
+    gap: 12px;
+    justify-content: space-between;
+  }
+  .secao_3_item-icon{ width: 54px; height: 54px; }
+  .secao_3_main-text-block p{ padding-right: 20px; }
+}
+
+
+@media (max-width: 768px){
+  /* layout geral mais compacto */
+  .secao_3_container{
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  /* cabeçalho vira mini menu horizontal rolável */
+  .secao_3_header{
+    gap: 10px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    padding-bottom: 6px;
+  }
+  .secao_3_tab{
+    flex: 0 0 auto;               /* largura pelo conteúdo */
+    white-space: nowrap;
+    padding: 12px 16px;
+    font-size: .95rem;
+    margin-right: 0;
+    border-radius: 0px;          /* “pill” */
+    box-shadow: 0 1px 4px rgba(0,0,0,.08);
+  }
+
+  /* esconde o segundo menu (grade de itens) no mobile */
+  .secao_3_items-grid{
+    display: none !important;
+    pointer-events: none;
+  }
+
+  /* conteúdo abaixo das abas */
+  .secao_3_content-area{
+    padding-top: 16px;
+  }
+
+  /* bloco inferior empilhado */
+  .secao_3_content-bottom-section{
+    flex-direction: column-reverse; 
+    min-height: 0;
+  }
+  .coluna-esquerda, .coluna-direita{
+    width:100%; flex:1 1 auto; padding:16px 12px;
+  }
+  .secao_3_image-container{ aspect-ratio:16/9; height:auto; }
+}
+
+
+/* Celulares pequenos (<= 420px): 1 coluna de itens */
+@media (max-width: 420px){
+  .secao_3_item{ flex: 1 1 100%; }
+}
+/* oquefazemos */
+/* ===== Seção: O que fazemos? ===== */
+.porvoce{
+  background:#fff;
+  padding: 52px 0 28px;
+}
+
+.oqf-container{
+  max-width:1140px;
+  margin:0 auto;
+  padding: 0 20px;
+  text-align:center;
+}
+
+.oqf-text-block{
+  margin: 0 auto;
+  max-width: 900px;
+}
+
+/* Título grande como no print */
+.oqf-text-block h2{
+  margin: 0 0 10px;
+  font-weight: 800;
+  font-size: clamp(28px, 5.6vw, 52px);
+  line-height: 1.15;
+  color:#1D1D1B;
+}
+
+/* Subtítulo */
+.oqf-text-block .descricao{
+  margin: 0;
+  font-size: clamp(14px, 2.4vw, 20px);
+  color:#1D1D1B;
+  opacity:.9;
+}
+
+/* “linha” de respiro antes das abas (opcional) */
+#oqfazemos + .secao_3_container{
+  margin-top: 18px;
+}
+
+/* ===== Responsivo fino ===== */
+/* notebooks médios */
+@media (max-width: 1280px){
+  .porvoce{ padding: 46px 0 24px; }
+}
+
+/* tablets e celulares */
+@media (max-width: 768px){
+  .porvoce{ padding: 36px 0 18px; }
+  .oqf-container{ padding: 0 16px; }
+}

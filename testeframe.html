@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Scroll Sequence com Texto Central Final</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* RESET / BASE */
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      font-family: Poppins, sans-serif;
+      background: #000;
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    /* Container controla a duração do scroll */
+    #container-animacao{
+      height: 500vh;             /* controla “tempo” de rolagem */
+      position: relative;
+    }
+
+    /* Canvas fica preso enquanto o container está na viewport */
+    #canvas-sequencia{
+      position: sticky;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      display: block;
+    }
+
+    /* BLOCO DE TEXTO SOBREPOSTO E CENTRALIZADO */
+    .bloco-texto-animado{
+      position: fixed;           /* fica sempre sobre o canvas */
+      inset: 0;                  /* top:0; right:0; bottom:0; left:0; */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;   /* centraliza vertical e horizontal */
+      text-align: center;
+      padding: 0 24px;
+      z-index: 2;                /* acima do canvas */
+      pointer-events: none;      /* não bloqueia o scroll */
+      opacity: 0;                /* inicia invisível (animaremos) */
+      transform: translateY(100vh); /* inicia fora da tela por baixo */
+      transition: none;          /* tudo via JS */
+      will-change: transform, opacity;
+    }
+
+    .bloco-texto-animado .subtitulo{
+      font-size: clamp(12px, 2.2vw, 16px);
+      letter-spacing: .12em;
+      opacity: .9;
+      margin: 0 0 10px;
+    }
+
+    .bloco-texto-animado h2{
+      margin: 0 0 10px;
+      font-size: clamp(24px, 5vw, 56px);
+      line-height: 1.1;
+      font-weight: 700;
+    }
+
+    .bloco-texto-animado h2 span{
+      color: #f9b000;
+    }
+
+    .bloco-texto-animado .descricao{
+      margin: 0;
+      font-size: clamp(14px, 2.6vw, 18px);
+      opacity: .95;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="container-animacao">
+    <canvas id="canvas-sequencia"></canvas>
+
+    <div class="bloco-texto-animado" id="blocoTextoAnimado">
+      <p class="subtitulo">AUMENTE SUAS VENDAS ATRAVÉS DOS CANAIS DIGITAIS</p>
+      <h2>Fanáticos por <span>Resultados</span></h2>
+      <p class="descricao">Somos o braço estratégico que você precisa para alavancar suas vendas.</p>
+    </div>
+  </div>
+
+  <script>
+    // ====== SETUP ======
+    const html = document.documentElement;
+    const canvas = document.getElementById('canvas-sequencia');
+    const context = canvas.getContext('2d');
+    const containerAnimacao = document.getElementById('container-animacao');
+    const blocoTextoAnimado = document.getElementById('blocoTextoAnimado');
+
+    // Número de frames
+    const frameCount = 312;
+
+    // Caminho dos frames (ajuste se necessário)
+    const currentFrame = (index) =>
+      `Home-imagens-webp/imagens-webp/Home_${index.toString().padStart(3, '0')}.webp`;
+
+    // Pré-carrega imagens
+    const images = [];
+    (function preload(){
+      for (let i = 0; i < frameCount; i++){
+        const img = new Image();
+        img.src = currentFrame(i);
+        images.push(img);
+      }
+    })();
+
+    // Desenha imagem no canvas (cover)
+    function drawImageCover(img){
+      const sw = window.innerWidth;
+      const sh = window.innerHeight;
+      canvas.width = sw;
+      canvas.height = sh;
+
+      const iw = img.naturalWidth;
+      const ih = img.naturalHeight;
+      const imgRatio = iw / ih;
+      const screenRatio = sw / sh;
+
+      let dw = sw, dh = sh, dx = 0, dy = 0;
+      if (screenRatio > imgRatio){
+        // tela mais "larga" -> ajusta pela altura
+        dw = sh * imgRatio;
+        dx = (sw - dw) / 2;
+      } else {
+        // tela mais "alta" -> ajusta pela largura
+        dh = sw / imgRatio;
+        dy = (sh - dh) / 2;
+      }
+
+      context.clearRect(0,0,sw,sh);
+      context.drawImage(img, dx, dy, dw, dh);
+    }
+
+    images[0].onload = () => drawImageCover(images[0]);
+
+    // ====== CONTROLE DA ANIMAÇÃO ======
+    // Janela da animação do texto:
+    // - começa depois de 20% de rolagem do container
+    // - termina em 100% (último frame)
+    const textAnimationStart = 0.20; // 20%
+    const textAnimationEnd   = 1.00; // 100%
+
+    function updateAnimation(){
+      const containerTop = containerAnimacao.offsetTop;
+      const scrollableHeight = containerAnimacao.scrollHeight - window.innerHeight;
+      const scrollTop = html.scrollTop;
+
+      let scrollFraction = 0;
+      let frameIndex = 0;
+
+      if (scrollTop < containerTop){
+        scrollFraction = 0;
+        frameIndex = 0;
+      } else if (scrollTop > containerTop + scrollableHeight){
+        scrollFraction = 1;
+        frameIndex = frameCount - 1;
+      } else {
+        const progress = scrollTop - containerTop;
+        scrollFraction = progress / scrollableHeight;
+        frameIndex = Math.min(frameCount - 1, Math.floor(scrollFraction * frameCount));
+      }
+
+      // ---- Texto: entra e permanece central até o fim ----
+      // Calcula progresso do texto na janela definida
+      let textProgress = (scrollFraction - textAnimationStart) / (textAnimationEnd - textAnimationStart);
+      // Clampa 0..1
+      textProgress = Math.max(0, Math.min(1, textProgress));
+
+      // Move de fora da tela (100vh) até o centro (0)
+      const translateYvh = (1 - textProgress) * 100;
+      blocoTextoAnimado.style.transform = `translateY(${translateYvh}vh)`;
+      blocoTextoAnimado.style.opacity = String(textProgress);
+
+      // Mantém o texto no centro até o último frame (textProgress=1)
+      // (já garantido pelo clamp acima)
+
+      // Blur do canvas proporcional ao progresso do texto
+      const maxBlur = 10; // px
+      canvas.style.filter = `blur(${textProgress * maxBlur}px)`;
+
+      // Desenha o frame atual
+      const img = images[frameIndex];
+      if (img && img.complete){
+        requestAnimationFrame(() => drawImageCover(img));
+      }
+    }
+
+    // Eventos
+    window.addEventListener('scroll', updateAnimation, { passive: true });
+    window.addEventListener('resize', () => {
+      updateAnimation();
+      if (images[0] && images[0].complete) drawImageCover(images[0]);
+    });
+
+    // Primeira execução
+    updateAnimation();
+  </script>
+</body>
+</html>

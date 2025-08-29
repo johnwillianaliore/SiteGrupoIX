@@ -1,0 +1,248 @@
+/* ====== LAYOUT GERAL / CENTRALIZAÇÃO ====== */
+.secao_4_container{
+  display:flex;
+  align-items:stretch;   /* força as colunas a terem a mesma altura */
+  gap:24px;
+  max-width:1200px;
+      height: 50vh;
+  margin:0 auto;
+  padding:60px 20px;
+  box-sizing:border-box;
+  padding-bottom: 30px;
+}
+
+/* coluna esquerda */
+.secao_4_coluna_esquerda{
+  flex:1;                 /* divide espaço proporcional */
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between; /* distribui os cards igualmente */
+  gap:16px;
+}
+
+
+
+/* cards da esquerda */
+.secao_4_info_box{
+  background:#fff;
+  min-height:96px;           /* altura consistente */
+  padding:0 30px;            /* texto central */
+  display:flex;align-items:center;justify-content:center;
+  text-align:center;font-weight:700;font-size:20px;color:#1D1D1B;
+  box-shadow:0 2px 8px rgba(0,0,0,.07);
+  border-left:5px solid transparent;outline:1px solid transparent;
+  transition:.25s ease;cursor:pointer;
+}
+.secao_4_info_box:hover{
+  transform:translateY(-2px);
+  border-left-color:#f9b000; outline-color:#f9b000;
+}
+.secao_4_info_box.secao_4_active{
+  background:#f9b000; color:#fff;
+  border-left-color:#f9b000; outline-color:#f9b000;
+}
+
+/* coluna direita */
+.secao_4_coluna_direita{
+  flex:1;
+  display:grid;
+  position:relative;
+  min-width:0;
+  background:#fff;
+  box-shadow:0 2px 8px rgba(0,0,0,.07);
+}
+
+
+/* wrappers sobrepostos */
+.secao_4_content_wrapper{
+  grid-column:1/-1; grid-row:1/-1; position:relative; z-index:1; overflow:hidden;
+}
+
+/* países sobrepostos (quando “Alcance internacional”) */
+.secao_4_paises_container{
+  grid-column:1/-1; grid-row:1/-1;
+  display:flex; justify-content:center; align-items:flex-start;
+  padding-top:40px; gap:12px; width:100%;
+  opacity:0; visibility:hidden; z-index:2;
+  transition:opacity .4s ease, visibility .4s ease;
+}
+.secao_4_paises_container.visible{ opacity:1; visibility:visible; }
+.secao_4_pais_item{ font-weight:700; color:#fff; cursor:pointer; font-size:20px; transition:.2s; }
+.secao_4_pais_item:hover, .secao_4_pais_item.current{ color:#f9b000; transform:scale(1.06); }
+.secao_4_pais_separator{ color:#fff; font-weight:700; font-size:20px; }
+
+/* camadas (vídeo, imagem, capa 15 anos e logos) */
+#secao_4_video_player_container,
+#secao_4_imagem_inicial_container,
+#secao_4_v_15_anos,
+#secao_4_15_anos_cover,
+.secao_4_logos_grid{
+  position:absolute; inset:0;
+  opacity:0; visibility:hidden; transition:opacity .5s ease, visibility .5s ease;
+}
+#secao_4_video_player_container.visible,
+#secao_4_imagem_inicial_container.visible,
+#secao_4_15_anos_cover.visible,
+.secao_4_logos_grid.visible{ opacity:1; visibility:visible; }
+
+#secao_4_video_player_container,
+#secao_4_imagem_inicial_container,
+#secao_4_v_15_anos,
+#secao_4_15_anos_cover{ background:#000; }
+#secao_4_imagem_inicial_container img,
+#secao_4_video_player_container video,
+#secao_4_v_15_anos{ width:100%; height:100%; object-fit:cover; }
+#secao_4_video_player_container video{ display:none; }
+
+/* capa 15 anos */
+#secao_4_15_anos_cover{ display:flex; justify-content:center; align-items:center; cursor:pointer; z-index:4; }
+#secao_4_15_anos_cover img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:.7; transition:.3s; }
+#secao_4_15_anos_cover:hover img{ opacity:.5; }
+#secao_4_play_button_15_anos{ width:80px; height:80px; background:rgba(249,176,0,.9); border-radius:50%; position:relative; z-index:5; transition:.2s; }
+#secao_4_15_anos_cover:hover #secao_4_play_button_15_anos{ transform:scale(1.06); }
+#secao_4_play_button_15_anos::after{
+  content:''; position:absolute; top:50%; left:55%; transform:translate(-50%,-50%);
+  border-top:20px solid transparent; border-bottom:20px solid transparent; border-left:30px solid #fff;
+}
+
+/* ====== LOGOS – 12 por página ====== */
+.secao_4_logos_page{
+  position:absolute; inset:0;
+  display:grid;
+  grid-template-columns:repeat(3, 1fr);   /* 3 colunas */
+  grid-auto-rows:90px;                    /* 4 linhas → total 12 */
+  gap:24px;
+  padding:28px;
+  place-content:center;                   /* centraliza vertical */
+  place-items:center;
+  transition:transform .8s cubic-bezier(.77,0,.175,1);
+}
+.secao_4_logo_item{ 
+  width:100%; height:100%; 
+  display:flex; align-items:center; justify-content:center; 
+}
+.secao_4_logo_item img{
+  max-width:140px; max-height:60px; 
+  object-fit:contain; 
+  filter:grayscale(1); 
+  transition:.2s;
+}
+.secao_4_logo_item:hover img{ filter:grayscale(0); transform:scale(1.06); }
+
+/* paginação (deslize) */
+.secao_4_logos_page.active{ transform:translateX(0); }
+.secao_4_logos_page.next{   transform:translateX(100%); }
+.secao_4_logos_page.prev{   transform:translateX(-100%); }
+
+/* agora não limitamos mais a 8, mostramos todos (12) */
+
+
+/* barra de progresso (a “linhazinha” laranja do print) */
+.secao_4_progress_bar_container{
+  position:absolute; left:0; right:0; bottom:0; height:4px;
+  background:rgba(0,0,0,.08); z-index:10; opacity:0; visibility:hidden;
+  transition:.3s;
+}
+.secao_4_progress_bar_container.visible{ opacity:1; visibility:visible; }
+.secao_4_progress_bar_fill{ width:0%; height:100%; background:#f9b000; }
+.secao_4_progress_bar_fill.animate{ animation:fill-progress 5s linear forwards; }
+@keyframes fill-progress{ from{width:0%} to{width:100%} }
+
+.secao_4_titulo {
+    padding-top: 50px;
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.secao_4_titulo h2 {
+  font-size: 28px;
+  font-weight: 700;
+  color: #1d1d1b;
+  line-height: 1.3;
+}
+
+.secao_4_titulo h2 span {
+  color: #f9b000; /* amarelo da identidade */
+}
+
+/* ====== RESPONSIVO ====== */
+@media (max-width: 1024px){
+  .secao_4_container{ gap:18px; padding:40px 16px; }
+  .secao_4_coluna_esquerda{ flex-basis:42%; }
+  .secao_4_logos_page{ grid-auto-rows:72px; gap:20px; }
+}
+/* ===== Mobile: menu lateral vira topo horizontal ===== */
+@media (max-width: 980px){
+  .secao_4_container{
+    flex-direction: column;        /* empilha */
+    align-items: stretch;
+    gap: 14px;
+    height: auto;                  /* remove 50vh no mobile */
+    padding: 28px 16px;
+  }
+
+  /* coloca o menu (esquerda) em cima */
+  .secao_4_coluna_esquerda{
+    order: 1;
+    flex-basis: auto;
+    display: flex;
+    flex-direction: row;           /* vira horizontal */
+    justify-content: center;
+    align-items: stretch;
+    gap: 10px;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  /* botões do mini menu */
+  .secao_4_info_box{
+    flex: 1 1 0;
+    min-height: 48px;
+    padding: 10px 12px;
+    font-size: 14px;
+    line-height: 1.2;
+    border-left: 0;                /* tira a “borda esquerda” */
+    outline: 0;
+    box-shadow: 0 1px 4px rgba(0,0,0,.08);
+    border-radius: 8px;
+    white-space: nowrap;           /* mantém em uma linha */
+  }
+  .secao_4_info_box:hover{ transform:none; }
+
+  /* estado ativo mantém identidade */
+  .secao_4_info_box.secao_4_active{
+    background:#f9b000; color:#fff;
+  }
+
+  /* conteúdo (direita) fica abaixo do mini menu */
+  .secao_4_coluna_direita{
+    order: 2;
+    min-height: 420px;             /* garante área para vídeo/logos */
+    border: 1px solid #eee;
+  }
+
+  /* grid de logos: 2 colunas × 6 linhas (12) */
+  .secao_4_logos_page{
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: 86px;
+    gap: 16px;
+    padding: 18px;
+  }
+  .secao_4_logo_item img{ max-width:120px; max-height:56px; }
+  .secao_4_coluna_esquerda{
+  flex:1;                 /* divide espaço proporcional */
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between; /* distribui os cards igualmente */
+  gap:0px;
+}
+}
+
+/* Ajuste extra para telas muito pequenas */
+@media (max-width: 420px){
+  .secao_4_info_box{
+    font-size: 12.5px;
+    padding: 8px 10px;
+  }
+}
+

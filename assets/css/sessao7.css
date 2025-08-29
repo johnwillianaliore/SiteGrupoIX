@@ -1,0 +1,72 @@
+/* ================================================================== */
+/* CSS CORRIGIDO E COMPLETO PARA A SEÇÃO 7 (IX GROWTH)              */
+/* ================================================================== */
+
+/* --- Container Principal --- */
+/* A classe .hero-fullbleed garante que a seção ocupe a tela inteira,
+   "escapando" de qualquer container pai que possa limitar sua largura. */
+.hero-fullbleed {
+  width: 100%;
+  box-sizing: border-box; /* Garante que padding não afete a largura final */
+}
+
+/* --- Container de Rolagem --- */
+/* Este div controla a "duração" da animação no scroll */
+#growth-anim {
+  height: 420vh; /* Duração do efeito */
+  position: relative;
+  background: #000;
+}
+
+/* --- Canvas da Animação --- */
+/* Este é o elemento que fica "preso" na tela e exibe as imagens */
+#growth-canvas {
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  object-fit: cover; /* força estilo cover */
+  display: block;
+  background: black;
+}
+
+
+/* --- Botão (Call to Action) --- */
+.growth-cta {
+  pointer-events: auto;
+  display: inline-block;
+  background: #f9b000;
+  color: #1D1D1B;
+  font-weight: 800;
+  padding: 12px 22px;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: .15s ease transform, .2s ease background, .2s ease color, .2s ease box-shadow;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, .25);
+}
+
+.growth-cta:hover {
+  background: #1D1D1B;
+  color: #f9b000;
+  transform: translateY(-2px);
+}
+
+/* ================================================================== */
+/* AJUSTES PARA TELAS MENORES (RESPONSIVO)                          */
+/* ================================================================== */
+
+@media (max-width: 1280px) {
+  #growth-anim {
+    height: 380vh;
+  }
+}
+
+@media (max-width: 768px) {
+  #growth-anim {
+    height: 320vh;
+  }
+  #growthOverlay {
+    padding: 0 16px; /* Adiciona um respiro lateral para o texto em telas pequenas */
+  }
+}

@@ -1,0 +1,120 @@
+/* ===== Sessão 12 – FAQ ===== */
+.s12{
+  background:#f4f4f6; /* cinza clarinho como no print */
+  padding: clamp(28px, 5vw, 56px) 0;
+  font-family: 'Montserrat', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  color:#1D1D1B;
+}
+.s12__wrap{
+  width:min(1200px, 92vw);
+  margin:0 auto;
+  display:grid;
+  grid-template-columns: 1fr 1.2fr;
+  align-items: center;
+  gap: clamp(20px,4vw,48px);
+}
+.s12__left{
+  display:grid; place-items:center;
+}
+.s12__phone{
+  width:min(460px, 44vw);
+  height:auto;
+  filter: drop-shadow(0 20px 40px rgba(0,0,0,.15));
+  transform: translateX(-6px);
+}
+.s12__right{ min-width:0; }
+.s12__title{
+  margin:0 0 18px;
+  font-size: clamp(26px, 3.2vw, 38px);
+  font-weight: 800;
+  color:#f9b000;
+}
+
+/* Slider */
+.s12__slider{ position:relative; }
+.s12__slide{ display:none; }
+.s12__slide.is-active{ display:block; }
+
+/* Item do FAQ */
+.s12__item{
+  background:#fff;
+  border-radius: 14px;
+  margin-bottom:14px;
+  box-shadow: 0 2px 8px rgba(0,0,0,.07);
+  overflow:hidden;
+}
+.s12__item summary{
+  display:flex; align-items:center; gap:16px;
+  list-style:none; cursor:pointer;
+  padding:18px 22px;
+  font-weight:800; font-size:16px;
+  outline:none;
+}
+.s12__item[open] summary{ border-bottom:1px solid #eee; }
+.s12__item summary::-webkit-details-marker{ display:none; }
+
+/* Chevrons à direita (⬆⬇) */
+.s12__item summary .chev{
+  margin-left:auto;
+  width:18px; height:18px; position:relative; flex:0 0 18px;
+}
+.s12__item summary .chev::before,
+.s12__item summary .chev::after{
+  content:""; position:absolute; inset:0;
+  border: solid #777; border-width:0 2px 2px 0;
+  transform: rotate(-45deg);
+  margin:auto; width:8px; height:8px;
+  transition: transform .25s ease, border-color .25s ease;
+}
+.s12__item[open] summary .chev::before,
+.s12__item[open] summary .chev::after{
+  transform: rotate(45deg);
+  border-color:#f9b000;
+}
+
+.s12__content{
+  padding: 14px 22px 20px;
+  line-height:1.65;
+}
+
+/* Pager */
+.s12__pager{
+  display:flex; align-items:center; gap:12px;
+  justify-content:flex-end;
+  margin-top:8px;
+  color:#f9b000;
+  font-weight:700;
+}
+.s12__nav{
+  border:0; background:transparent; color:#f9b000;
+  font-size:18px; cursor:pointer; padding:4px 6px; border-radius:6px;
+}
+.s12__nav:hover{ background: rgba(249,176,0,.12); }
+.s12__count{ min-width:64px; text-align:center; }
+/* ===== FAQ Aberto (Sessão 12) ===== */
+.s12__item[open] {
+  background: #ffffff;
+  color: black;
+}
+.s12__item[open] summary {
+    background-color: #f9b000;
+    color: #fff;
+}
+.s12__item[open] summary span {
+  color: #fff;
+  background-color: #f9b000;
+  font-weight: 700;
+}
+
+.s12__item[open] summary .chev::before,
+.s12__item[open] summary .chev::after {
+  border-color: #fff; /* seta branca */
+}
+
+/* Responsivo */
+@media (max-width: 980px){
+  .s12__wrap{ grid-template-columns: 1fr; }
+  .s12__left{ order:-1; }
+  .s12__phone{ width:min(520px, 66vw); transform:none; }
+  .s12__pager{ justify-content:center; }
+}

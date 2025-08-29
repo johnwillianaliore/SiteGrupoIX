@@ -1,0 +1,93 @@
+/* --- Secão 9: More Leads More Cash --- */
+.secao9-mlmc{
+  
+  background:#201329; /* roxo escuro do print */
+  color:#fff;
+  content-visibility:auto;
+  contain-intrinsic-size: 1400px 520px;
+}
+.secao9-mlmc__text {
+    max-width: 640px;
+    display: flex
+;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: center;
+}
+.secao9-mlmc__wrap{
+  max-width: 100%;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: clamp(24px, 5vw, 64px);
+  align-items: stretch;   /* <- estica as duas colunas igualmente */
+}
+
+.secao9-mlmc__media{
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0,0,0,.25);
+  height: 100%;              /* <- garante altura cheia */
+}
+
+.secao9-mlmc__video{
+  display:block;
+  width:100%;
+  height:100%;               /* <- pega altura total da coluna */
+  object-fit: cover;         /* mantém efeito "cover" */
+  background:#000;
+}
+
+.secao9-mlmc__text{ max-width: 640px; }
+
+.secao9-mlmc__title .kicker{
+  display:block;
+  font-weight:700;
+  letter-spacing:.08em;
+  opacity:.9;
+  margin-bottom: 8px;
+  font-size: clamp(12px, 1.6vw, 16px);
+}
+.secao9-mlmc__title h2{
+  margin: 0 0 8px 0;
+  line-height: 1;
+  font-weight: 800;
+  font-size: clamp(42px, 8vw, 88px);
+}
+.secao9-mlmc__title h2 span{
+  color:#f9b000; /* brand */
+}
+.secao9-mlmc__title .season{
+  margin: 8px 0 20px 0;
+  letter-spacing:.35em;
+  font-weight:700;
+  opacity:.9;
+  font-size: clamp(12px, 1.6vw, 16px);
+}
+.secao9-mlmc__desc{
+  font-size: clamp(14px, 2.2vw, 18px);
+  line-height: 1.6;
+  opacity:.95;
+}
+
+/* Responsivo */
+@media (max-width: 960px){
+  .secao9-mlmc__wrap{
+    grid-template-columns: 1fr;
+  }
+  .secao9-mlmc__video{
+    height: clamp(220px, 56vw, 420px);
+  }
+  .secao9-mlmc__text {
+    max-width: 640px;
+    padding: 50px;
+    padding-bottom: 100px;
+}
+}
+
+/* Acessibilidade: reduzir movimentos */
+@media (prefers-reduced-motion: reduce){
+  .secao9-mlmc__video{ animation: none; }
+}

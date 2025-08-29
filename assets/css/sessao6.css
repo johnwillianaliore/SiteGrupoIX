@@ -1,0 +1,178 @@
+:root{
+  --gap:1.5rem;
+  --card-shadow:0 2px 8px rgba(0,0,0,.07);
+  --card-shadow-hover:0 4px 12px rgba(0,0,0,.1);
+  --text-cold:#333333;
+  --text-hot:#f9b000;
+}
+
+/* Grids básicos */
+.sessao-6-container-principal,
+#sessao-6-container-segmentos,
+#sessao-6-container-textos{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:var(--gap);
+}
+
+/* Tipos */
+.sessao-6-segmento-peek,
+.sessao-6-texto-segmento{
+  font:700 20px/1.1 Poppins,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+}
+
+/* Elevações */
+.sessao-6-bloco-grande,
+.sessao-6-botao-cliente,
+.sessao-6-botao-segmento,
+.sessao-6-segmento-peek{
+  background:#fff !important;
+  box-shadow:var(--card-shadow) !important;
+}
+.sessao-6-botao-cliente.active,
+.sessao-6-botao-cliente:hover,
+.sessao-6-botao-segmento:hover{
+  box-shadow:var(--card-shadow-hover) !important;
+}
+
+/* Container principal */
+.sessao-6-container-principal{
+  width:100%;
+  max-width:1400px;
+  margin:auto;
+  grid-template-rows:auto 1fr;
+  padding:2rem 1rem;
+}
+
+/* Faixa dos segmentos (drag) */
+.sessao-6-segmentos-wrapper{ grid-column:1/-1; position:relative; }
+
+#sessao-6-container-segmentos{
+  position:relative;
+  transition:transform .25s ease-out;
+  will-change:transform;
+  cursor:grab;
+  gap:1.5rem;
+}
+#sessao-6-container-segmentos.is-dragging{ transition:none; cursor:grabbing; }
+
+#sessao-6-container-textos{
+  position:absolute; inset:0; pointer-events:none; z-index:3;
+}
+#sessao-6-container-textos::before{
+  content:""; position:absolute; top:0; left:var(--destaque-left,0);
+  width:var(--destaque-width,0); height:100%; background:#1d1d1b;
+  transition:.4s cubic-bezier(.23,1,.32,1); z-index:2;
+}
+.sessao-6-texto-segmento{
+  position:relative; z-index:3; display:flex; align-items:center; justify-content:center;
+  color:var(--text-cold); text-align:center; transition:color .25s; will-change:transform,color;
+}
+.sessao-6-texto-segmento.active{ color:var(--text-hot); }
+
+.sessao-6-botao-segmento{
+  aspect-ratio:500/125; border:none; outline:0; cursor:pointer;
+  border-bottom:4px solid transparent !important;
+  transition:transform .2s, box-shadow .2s, border-color .2s; z-index:1;
+}
+
+/* “peek” das pontas */
+.sessao-6-segmento-peek{
+  position:absolute; top:0; height:100%; width:var(--peek-width,0);
+  display:flex; align-items:center; justify-content:center; padding:0 1rem;
+  color:#ccc !important; opacity:0; transition:opacity .4s, transform .4s; will-change:transform,opacity; z-index:1;
+}
+#sessao-6-segmento-peek-prev{ left:0;  mask-image:linear-gradient(to right,transparent 2%,black 30%); }
+#sessao-6-segmento-peek-next{ right:0; mask-image:linear-gradient(to left, transparent 2%,black 30%); }
+
+/* Coluna de clientes */
+#sessao-6-container-clientes{
+  grid-column:1/2; grid-row:2/3; display:flex; flex-direction:column; gap:var(--gap);
+  position:relative; z-index:5;
+}
+#sessao-6-seta-cliente-ativo{
+  position:absolute; left:100%; margin-left:calc(-.5rem/2 - 12px);
+  top:var(--seta-top,-50px); opacity:0; width:55px; height:55px;
+  background-repeat:no-repeat; background-position:center; background-size:contain;
+  transition:.4s cubic-bezier(.23,1,.32,1); z-index:1;
+  background-image:url(https://grupoix.com.br/new/wp-content/uploads/2025/08/Seta_Dir.webp);
+}
+.sessao-6-botao-cliente{
+  aspect-ratio:500/250; border:none; outline:0; padding:1rem; cursor:pointer;
+  display:flex; align-items:center; justify-content:center; gap:1rem; text-align:left; font-weight:700;
+  color:#333 !important; border-bottom:5px solid transparent !important;
+  transition:transform .2s, box-shadow .2s, border-color .2s; overflow:hidden; min-width:0; position:relative; z-index:2;
+}
+.sessao-6-botao-cliente.active{ border-bottom-color:var(--text-hot) !important; }
+.sessao-6-logo-cliente{ height:85% !important; max-width:100% !important; object-fit:contain; min-width:0; }
+.sessao-6-botao-cliente.sessao-6-cliente-vazio{
+  background:#f7f7f7 !important; cursor:default; box-shadow:inset 0 0 8px rgb(0 0 0 / .04) !important;
+}
+
+/* Bloco grande (imagem principal) */
+.sessao-6-bloco-grande{ grid-column:2/-1; grid-row:2/3; position:relative; min-height:clamp(320px,45vw,640px); }
+#sessao-6-imagem-principal{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; transition:opacity .5s; }
+
+/* Drag helpers */
+#sessao-6-container-segmentos img{ -webkit-user-drag:none; user-drag:none; pointer-events:none; }
+
+/* Navegação (setas) */
+.sessao-6-seta-navegacao{
+  position:absolute; top:50%; transform:translateY(-50%); z-index:10;
+  border:0; cursor:pointer; width:48px; height:48px; background:center/contain no-repeat;
+  transition:transform .15s;
+}
+.sessao-6-seta-navegacao:hover{ transform:translateY(-50%) scale(1.06); }
+.sessao-6-seta-navegacao:active{ transform:translateY(-50%) scale(.98); }
+
+#sessao-6-seta-segmento-prev{
+  left:-30px; width:12px;
+  background-image:url(https://grupoix.com.br/new/wp-content/uploads/2025/08/Seta_Esq.webp);
+}
+#sessao-6-seta-segmento-next{
+  right:-30px; width:12px;
+  background-image:url(https://grupoix.com.br/new/wp-content/uploads/2025/08/Seta_Dir.webp);
+}
+
+/* Responsivo */
+@media (max-width:1368px){
+  #sessao-6-seta-segmento-prev{ left:-24px; }
+  #sessao-6-seta-segmento-next{ right:-24px; }
+}
+@media (max-width:992px){
+  :root{ --gap:1rem; }
+  .sessao-6-container-principal{ grid-template-columns:1fr; grid-template-rows:auto auto auto; }
+  #sessao-6-container-clientes, .sessao-6-bloco-grande{ grid-column:1/-1; grid-row:auto; }
+  .sessao-6-bloco-grande{ min-height:clamp(280px,50vw,600px); }
+  .sessao-6-texto-segmento{ font-size:17px; }
+  .sessao-6-botao-cliente{ aspect-ratio:500/220; }
+  #sessao-6-seta-cliente-ativo{ right:8px; left:unset; transform:scale(.9); }
+  #sessao-6-seta-segmento-prev{ left:-14px; }
+  #sessao-6-seta-segmento-next{ right:-14px; }
+}
+@media (max-width:600px){
+  :root{ --gap:.85rem; }
+  .sessao-6-container-principal{ padding:1rem 0; }
+  .sessao-6-texto-segmento{ font-size:15px; }
+  .sessao-6-botao-segmento{ aspect-ratio:500/135; }
+
+  /* Mobile: esconde colunas e usa galeria vertical */
+  #sessao-6-container-clientes,
+  #sessao-6-imagem-principal,
+  #sessao-6-seta-cliente-ativo{ display:none !important; }
+
+  .sessao-6-bloco-grande{
+    grid-column:1/-1; background:transparent !important; box-shadow:none !important; min-height:0;
+  }
+  .s6-galeria-mobile{ display:flex; flex-direction:column; gap:0;
+    margin-left:calc(50% - 50vw); margin-right:calc(50% - 50vw); }
+  .s6-gal-item{ border-radius:0; box-shadow:none; overflow:hidden; background:transparent; }
+  .s6-gal-img{ display:block; width:100vw; height:auto; }
+  .s6-gal-cap{ display:none; }
+
+  .sessao-6-seta-navegacao{ width:44px; height:44px; }
+  #sessao-6-seta-segmento-prev{ left:-10px; }
+  #sessao-6-seta-segmento-next{ right:-10px; }
+}
+
+figure{ margin:0; }
