@@ -1,13 +1,13 @@
 /* ===== HERO FULL-BLEED ===== */
-/* Esta classe ignora o container do <main> e ocupa 100vw. */
+/* Esta classe ocupa 100% da largura do container para evitar overflow horizontal. */
 .hero-fullbleed{
   position: relative;
-  left: 50%;
-  right: 50%;
-  margin-left: -50vw;
-  margin-right: -50vw;
   width: 100%;
-  padding: 0px;
+  padding: 0;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* Controla a “duração” da rolagem do efeito */
@@ -22,7 +22,7 @@
   position: sticky;
   top: 0;
   left: 0;
-  width: 100vw;   /* 100% da largura da viewport */
+  width: 100%;   /* 100% da largura da viewport */
   height: 100vh;  /* 100% da altura da viewport */
   display: block;
    max-width: 100% !important; /* impede restrição de container */
