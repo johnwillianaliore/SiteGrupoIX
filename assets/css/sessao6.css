@@ -164,10 +164,9 @@
   .sessao-6-bloco-grande{
     grid-column:1/-1; background:transparent !important; box-shadow:none !important; min-height:0;
   }
-  .s6-galeria-mobile{ display:flex; flex-direction:column; gap:0;
-    margin-left:calc(50% - 50vw); margin-right:calc(50% - 50vw); }
+  .s6-galeria-mobile{ display:flex; flex-direction:column; gap:0; }
   .s6-gal-item{ border-radius:0; box-shadow:none; overflow:hidden; background:transparent; }
-  .s6-gal-img{ display:block; width:100vw; height:auto; }
+  .s6-gal-img{ display:block; width:100%; height:auto; }
   .s6-gal-cap{ display:none; }
 
   .sessao-6-seta-navegacao{ width:44px; height:44px; }
